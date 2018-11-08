@@ -8,10 +8,10 @@
 <div id="Alliances" align="center" style="float:inherit;height:775px;background-color:antiquewhite;margin-left:auto;margin-right:auto;max-width:700px;min-width:550px">
 
 
-<button onclick="removeAlliance(1)">Remove Last Alliance</button>
+    <button onclick="removeAlliance(1)">Remove Last Alliance</button>
 
     <br />
-    <div id="AllianceSide0"style="float:left;margin-right:10px ; margin-top:20px ; margin-bottom:10px; height:700px ; width : 300px; background-color:grey">
+    <div id="AllianceSide0" style="float:left;margin-right:10px ; margin-top:20px ; margin-bottom:10px; height:700px ; width : 300px; background-color:grey">
 
 
 
@@ -22,7 +22,7 @@
 
 
 
-        <div id="AllianceDIV1"style=" margin-left:20% ;margin-right:10px ; margin-top:20px ; margin-bottom:10px ">
+        <div id="AllianceDIV1" style=" margin-left:20% ;margin-right:10px ; margin-top:20px ; margin-bottom:10px ">
             <img id="AllianceLogoURL1" style="min-height:128px;min-width:128px" src="http://image.eveonline.com/Alliance/1_128.png" /><br />
             Alliance 1 ID<br />
             <input id="Alliance1" onblur="allianceTest(1)" />
@@ -42,7 +42,7 @@
 
 
         <div style="margin-right:27.5%; margin-left:10px ;  margin-bottom:10px ">
-            <button onclick="addAlliance(1)">Add</button> 
+            <button onclick="addAlliance(1)">Add</button>
         </div>
 
         <div id="AllianceDIV2" style="margin-right:20%; margin-left:10px ; margin-top:20px ; margin-bottom:10px ">
@@ -94,88 +94,111 @@
 
 <script>
 
-    {
-        var allianceID1;
-        var allianceID2;
-        var allianceID3;
-        var allianceID4;
-        var allianceID5;
-        var allianceID6;
-        var alliance1side;
-        var alliance2side;
-        var alliance3side;
-        var alliance4side;
-        var alliance5side;
-        var alliance6side;
-        var killPageNumber = 1;
-        var lossPageNumber = 1;
-        var JSONString = "N/A";
-        var date;
-        var year;
-        var month;
-        var day;
-        var hour;
-        var killMailIDArray = [];
-        var listEndTest = "NotUsedYet";
-        var FetchKMURL;
-        var FetchLossMailURL;
-        var timeOut;
-        var LossmailEnd;
-        var lossMailIDArray = [];
-        var totalKillValue = 0;
-        var KillmailDate;
-        var ESIURL;
-        var ESIHash;
-        var ESIKMID;
-        var lossMailsAmount = 0;
-        var allKillMailsFound = false;
-        var allLossMailsFound = false;
-        var allianceOneReady = false;
-        var allianceTwoReady = false;
-        var allianceOneInDatabase = false;
-        var allianceTwoInDatabase = false;
-        var PHPReturn;
-        var previouslength = 0;
 
-        var PHPzkb = new XMLHttpRequest();
+    var allianceID1;
+    var allianceID2;
+    var allianceID3;
+    var allianceID4;
+    var allianceID5;
+    var allianceID6;
+    var alliance1side;
+    var alliance2side;
+    var alliance3side;
+    var alliance4side;
+    var alliance5side;
+    var alliance6side;
+    var killPageNumber = 1;
+    var lossPageNumber = 1;
+    var JSONString = "N/A";
+    var date;
+    var year;
+    var month;
+    var day;
+    var hour;
+    var killMailIDArray = [];
+    var listEndTest = "NotUsedYet";
+    var FetchKMURL;
+    var FetchLossMailURL;
+    var timeOut;
+    var LossmailEnd;
+    var lossMailIDArray = [];
+    var totalKillValue = 0;
+    var KillmailDate;
+    var ESIURL;
+    var ESIHash;
+    var ESIKMID;
+    var lossMailsAmount = 0;
+    var allKillMailsFound = false;
+    var allLossMailsFound = false;
+    var allianceOneReady = false;
+    var allianceTwoReady = false;
+    var allianceOneInDatabase = false;
+    var allianceTwoInDatabase = false;
+    var PHPReturn;
+    var previouslength = 0;
 
-        var timer;
-    }
+    var PHPzkb = new XMLHttpRequest();
+
+    var timer;
+
 
     var LastAlliance = 2;
 
     var listofAlliances = new Array();
 
-    var listofAlliances = [['Alliance1', 'false', 0, 0], ['Alliance2', 'false', 1, 0],['Alliance3', 'false', 1, 0],['Alliance4', 'false', 1, 0],['Alliance5', 'false', 1, 0],['Alliance6', 'false', 1, 0]];
-    
+    var listofAlliances = [['Alliance1', 'false', 0, 0], ['Alliance2', 'false', 1, 0], ['Alliance3', 'false', 1, 0], ['Alliance4', 'false', 1, 0], ['Alliance5', 'false', 1, 0], ['Alliance6', 'false', 1, 0]];
+
 
     function addAlliance(input) {
-        LastAlliance = LastAlliance + 1;
-        var float;
-        var side = input;
-        if (side == 0) {
-            info = '<div id="AllianceDIV'+ LastAlliance + '" style="margin-left:20%;margin-right:10px '
+
+        if (LastAlliance == 6) {
+
         }
         else {
-            info = '<div id="AllianceDIV'+ LastAlliance + '" style="margin-right:20%;margin-left:10px '
+
+            LastAlliance = LastAlliance + 1;
+            var float;
+            var side = input;
+            if (side == 0) {
+                info = '<div id="AllianceDIV' + LastAlliance + '" style="margin-left:20%;margin-right:10px '
+            }
+            else {
+                info = '<div id="AllianceDIV' + LastAlliance + '" style="margin-right:20%;margin-left:10px '
+            }
+            document.getElementById("AllianceSide" + side).innerHTML += '' + info + ' ; margin-top:20px ; margin-bottom:10px"> <img id="AllianceLogoURL' + LastAlliance + '" style="min-height:128px;min-width:128px" src="http://image.eveonline.com/Alliance/1_128.png" /><br />  Alliance ' + LastAlliance + ' ID<br />  <input id="Alliance' + LastAlliance + '" onblur="allianceTest(' + LastAlliance + ')" /> <p id="ADBFound' + LastAlliance + '"></p> </div>';
+
+            var NewAllianceString = "Alliance" + LastAlliance;
+
+
+            listofAlliances[LastAlliance - 1][3] = side;
+
+
+
+
         }
-        document.getElementById("AllianceSide" + side).innerHTML += '' + info + ' ; margin-top:20px ; margin-bottom:10px"> <img id="AllianceLogoURL' + LastAlliance + '" style="min-height:128px;min-width:128px" src="http://image.eveonline.com/Alliance/1_128.png" /><br />  Alliance ' + LastAlliance + ' ID<br />  <input id="Alliance' + LastAlliance + '" onblur="allianceTest(' + LastAlliance + ')" /> <p id="ADBFound' + LastAlliance + '"></p> </div>';
 
-        var NewAllianceString = "Alliance" + LastAlliance;
-
-
-        listofAlliances[LastAlliance - 1][3] = side;
 
     }
 
     function removeAlliance(input) {
-        var side = input;
-        document.getElementById("AllianceDIV" + LastAlliance).remove();
-        listofAlliances[LastAlliance - 1][1] = false;
-        listofAlliances[LastAlliance - 1][2] = 0;
-        listofAlliances[LastAlliance - 1][3] = 0;
 
-        LastAlliance = LastAlliance - 1;
+        if (LastAlliance == 1) {
+
+        }
+        else {
+
+            var side = input;
+            document.getElementById("AllianceDIV" + LastAlliance).remove();
+            listofAlliances[LastAlliance - 1][1] = false;
+            listofAlliances[LastAlliance - 1][2] = 0;
+            listofAlliances[LastAlliance - 1][3] = 0;
+
+            LastAlliance = LastAlliance - 1;
+
+
+        }
+
+
 
     }
 
@@ -190,7 +213,7 @@
         resetVariables();
 
 
-        
+
 
         if (listofAlliances[0][3] !== 0) {
             allianceID1 = listofAlliances[0][3];
@@ -223,9 +246,9 @@
 
 
 
-        
 
-  
+
+
 
 
 
@@ -391,7 +414,7 @@
         var allAlliancesReady = true;
 
         var x = 0;
-        var y = listofAlliances.length
+        var y = LastAlliance;
         while (x < y) {
             if (listofAlliances[x][1] == false) {
                 allAlliancesReady = false;
@@ -400,7 +423,7 @@
         }
 
 
-        if ((year > 2000) && (year < 2020) && (month < 13) && (String(month).length == 2) && (day < 34) && (String(day).length == 2) && (hour < 25) && (String(hour).length == 2) && (allAlliancesReady == true)) {
+        if ((year > 2000) && (year < 2020) && (month < 13) && (String(month).length == 2) && (day < 34) && (String(day).length == 2) && (hour < 25) && (String(hour).length == 2) && (allAlliancesReady == true) && (LastAlliance > 1)) {
             document.getElementById("StartButton").disabled = "";
         }
         else {
