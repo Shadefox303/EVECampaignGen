@@ -17,13 +17,20 @@ $alliance4Side = $_GET["Side4"];
 $alliance5Side = $_GET["Side5"];
 $alliance6Side = $_GET["Side6"];
 
+$alliance1Alliance = $_GET["isAlliance1"];
+$alliance2Alliance = $_GET["isAlliance2"];
+$alliance3Alliance = $_GET["isAlliance3"];
+$alliance4Alliance = $_GET["isAlliance4"];
+$alliance5Alliance = $_GET["isAlliance5"];
+$alliance6Alliance = $_GET["isAlliance6"];
 
-$allianceArray[0] = array("AllianceID" => $allianceID1 , "Side" => $alliance1Side);
-$allianceArray[1] = array("AllianceID" => $allianceID2 , "Side" => $alliance2Side);
-$allianceArray[2] = array("AllianceID" => $allianceID3 , "Side" => $alliance3Side);
-$allianceArray[3] = array("AllianceID" => $allianceID4 , "Side" => $alliance4Side);
-$allianceArray[4] = array("AllianceID" => $allianceID5 , "Side" => $alliance5Side);
-$allianceArray[5] = array("AllianceID" => $allianceID6 , "Side" => $alliance6Side);
+
+$allianceArray[0] = array("AllianceID" => $allianceID1 , "Side" => $alliance1Side, "isAlliance" => $alliance1Alliance);
+$allianceArray[1] = array("AllianceID" => $allianceID2 , "Side" => $alliance2Side, "isAlliance" => $alliance2Alliance);
+$allianceArray[2] = array("AllianceID" => $allianceID3 , "Side" => $alliance3Side, "isAlliance" => $alliance3Alliance);
+$allianceArray[3] = array("AllianceID" => $allianceID4 , "Side" => $alliance4Side, "isAlliance" => $alliance4Alliance);
+$allianceArray[4] = array("AllianceID" => $allianceID5 , "Side" => $alliance5Side, "isAlliance" => $alliance5Alliance);
+$allianceArray[5] = array("AllianceID" => $allianceID6 , "Side" => $alliance6Side, "isAlliance" => $alliance6Alliance);
 
 
 $year = $_GET["year"];
@@ -78,6 +85,7 @@ $percentageUnder = 0;
 
 $currentAlliancenumber = 1;
 
+$AorC;
 
 foreach ($allianceArray as $value){
 
@@ -91,12 +99,20 @@ foreach ($allianceArray as $value){
 
     $CurrentAllianceID = $value["AllianceID"];
     $CurrentAllianceSide = $value["Side"];
+
+    if ($value["isAlliance"] == 1){
+        $AorC = "alliance";
+    }
+    else {
+        $AorC = "corporation";
+    }
+
     $KillGetFinished = false;
     $LossGetFinished = false;
 
 
     while (!$KillGetFinished) {
-        $URL = "https://zkillboard.com/api/kills/allianceID/" . $CurrentAllianceID . "/page/" . $pagenumber . "/startTime/" . $date . "/";
+        $URL = "https://zkillboard.com/api/kills/" . $AorC . "ID/" . $CurrentAllianceID . "/page/" . $pagenumber . "/startTime/" . $date . "/";
         $jsonString = file_get_contents($URL, false, $context);
         $jsonarray = json_decode($jsonString);
         $x = 0;
@@ -133,7 +149,7 @@ foreach ($allianceArray as $value){
     $pagenumber = 1;
 
     while (!$LossGetFinished){
-        $URL = "https://zkillboard.com/api/losses/allianceID/" . $CurrentAllianceID . "/page/" . $pagenumber . "/startTime/" . $date . "/";
+        $URL = "https://zkillboard.com/api/losses/" . $AorC . "ID/" . $CurrentAllianceID . "/page/" . $pagenumber . "/startTime/" . $date . "/";
         $jsonString = file_get_contents($URL, false, $context);
         $jsonarray = json_decode($jsonString);
         $x = 0;
@@ -171,6 +187,8 @@ foreach ($allianceArray as $value){
 
     $currentAlliancenumber = $currentAlliancenumber + 1;
 
+    $pagenumber = 1;
+
 }
 
 
@@ -181,7 +199,26 @@ while ( $x < $y ){
     $s = count($Side1LossArray);
     while ($t < $s){
         if ( $Side0KillsArray[$x] == $Side1LossArray[$t]->killmail_id){
-            $Side0FinalKillsArray[] = $Side1LossArray[$t];
+
+
+            $alreadyin = false;
+            $q = 0;
+            $w = count ($Side0FinalKillsArray);
+            while ($q < $w){
+                if ($Side0FinalKillsArray[$q] == $Side1LossArray[$t]){
+                    $alreadyin = true;
+                }
+                $q = $q + 1;
+            }
+
+            if ($alreadyin == false){
+                $Side0FinalKillsArray[] = $Side1LossArray[$t];
+
+            }
+
+
+
+
         }
         $t = $t + 1;
     }
@@ -197,7 +234,24 @@ while ( $x < $y ){
     $s = count($Side0LossArray);
     while ($t < $s){
         if ( $Side1KillsArray[$x] == $Side0LossArray[$t]->killmail_id){
-            $Side1FinalKillsArray[] = $Side0LossArray[$t];
+
+            $alreadyin = false;
+            $q = 0;
+            $w = count ($Side1FinalKillsArray);
+            while ($q < $w){
+                if ($Side1FinalKillsArray[$q] == $Side0LossArray[$t]){
+                    $alreadyin = true;
+                }
+                $q = $q + 1;
+            }
+
+            if ($alreadyin == false){
+                $Side1FinalKillsArray[] = $Side0LossArray[$t];
+
+            }
+
+
+
         }
         $t = $t + 1;
     }

@@ -11,7 +11,7 @@
     <button onclick="removeAlliance(1)">Remove Last Alliance</button>
 
     <br />
-    <div id="AllianceSide0" style="float:left;margin-right:10px ; margin-top:20px ; margin-bottom:10px; height:700px ; width : 300px; background-color:grey">
+    <div id="AllianceSide0" style="float:left;margin-right:10px ; margin-top:20px ; margin-bottom:10px; height:700px ; width : 300px; background-color:grey;overflow-y:scroll">
 
 
 
@@ -24,7 +24,8 @@
 
         <div id="AllianceDIV1" style=" margin-left:20% ;margin-right:10px ; margin-top:20px ; margin-bottom:10px ">
             <img id="AllianceLogoURL1" style="min-height:128px;min-width:128px" src="http://image.eveonline.com/Alliance/1_128.png" /><br />
-            Alliance 1 ID<br />
+            <select onchange="IsAlliance(0,value)"><option value="1">Alliance</option><option value="0">Corp</option></select> 
+             1 ID<br />
             <input id="Alliance1" onblur="allianceTest(1)" />
             <p id="ADBFound1"></p>
         </div>
@@ -37,7 +38,7 @@
 
 
 
-    <div id="AllianceSide1" style="float: right; margin-left:10px ; margin-top:20px ; margin-bottom:10px; height:700px ; width : 300px; background-color:grey">
+    <div id="AllianceSide1" style="float: right; margin-left:10px ; margin-top:20px ; margin-bottom:10px; height:700px ; width : 300px; background-color:grey;overflow-y:scroll">
 
 
 
@@ -47,7 +48,8 @@
 
         <div id="AllianceDIV2" style="margin-right:20%; margin-left:10px ; margin-top:20px ; margin-bottom:10px ">
             <img id="AllianceLogoURL2" style="min-height:128px;min-width:128px" src="http://image.eveonline.com/Alliance/1_128.png" /><br />
-            Alliance 2 ID<br />
+            <select onchange="IsAlliance(1,value)"><option value="1">Alliance</option><option value="0">Corp</option></select>
+            2 ID<br />
             <input id="Alliance2" onblur="allianceTest(2)" />
             <p id="ADBFound2"></p>
         </div>
@@ -86,8 +88,8 @@
 <div style="float:inherit;height:120px;background-color:aliceblue;margin-left:auto;margin-right:auto;max-width:700px;min-width:550px">
 
     <p id="Progress">Program not started yet.</p>
-    <p id="Side0Kill">Alliance One killed</p>
-    <p id="Side1Kill">Alliance Two killed</p>
+    <p id="Side0Kill">Side 0 killed</p>
+    <p id="Side1Kill">Side 1 killed</p>
 
 </div>
 
@@ -107,6 +109,12 @@
     var alliance4side;
     var alliance5side;
     var alliance6side;
+    var allianceAlliance1;
+    var allianceAlliance2;
+    var allianceAlliance3;
+    var allianceAlliance4;
+    var allianceAlliance5;
+    var allianceAlliance6;
     var killPageNumber = 1;
     var lossPageNumber = 1;
     var JSONString = "N/A";
@@ -145,8 +153,14 @@
     var LastAlliance = 2;
 
     var listofAlliances = new Array();
+                                                                            // Alliance number  /  Is ready  /   Side they're on      /  AllianceID    /  Is an alliance?
+    var listofAlliances = [['Alliance1', 'false', 0, 0, 1], ['Alliance2', 'false', 1, 0, 1], ['Alliance3', 'false', 1, 1, 1], ['Alliance4', 'false', 1, 1, 1], ['Alliance5', 'false', 1, 1, 1], ['Alliance6', 'false', 1, 1, 1]];
 
-    var listofAlliances = [['Alliance1', 'false', 0, 0], ['Alliance2', 'false', 1, 0], ['Alliance3', 'false', 1, 0], ['Alliance4', 'false', 1, 0], ['Alliance5', 'false', 1, 0], ['Alliance6', 'false', 1, 0]];
+
+    function IsAlliance(number, istrue) {
+        listofAlliances[number][4] = istrue;
+    }
+
 
 
     function addAlliance(input) {
@@ -165,7 +179,7 @@
             else {
                 info = '<div id="AllianceDIV' + LastAlliance + '" style="margin-right:20%;margin-left:10px '
             }
-            document.getElementById("AllianceSide" + side).innerHTML += '' + info + ' ; margin-top:20px ; margin-bottom:10px"> <img id="AllianceLogoURL' + LastAlliance + '" style="min-height:128px;min-width:128px" src="http://image.eveonline.com/Alliance/1_128.png" /><br />  Alliance ' + LastAlliance + ' ID<br />  <input id="Alliance' + LastAlliance + '" onblur="allianceTest(' + LastAlliance + ')" /> <p id="ADBFound' + LastAlliance + '"></p> </div>';
+            document.getElementById("AllianceSide" + side).innerHTML += '' + info + ' ; margin-top:20px ; margin-bottom:10px"> <img id="AllianceLogoURL' + LastAlliance + '" style="min-height:128px;min-width:128px" src="http://image.eveonline.com/Alliance/1_128.png" /><br /><select onchange="IsAlliance('+(LastAlliance - 1)+',value)"><option value="1">Alliance</option><option value="0">Corp</option></select> ' + LastAlliance + ' ID<br />  <input id="Alliance' + LastAlliance + '" onblur="allianceTest(' + LastAlliance + ')" /> <p id="ADBFound' + LastAlliance + '"></p> </div>';
 
             var NewAllianceString = "Alliance" + LastAlliance;
 
@@ -218,39 +232,37 @@
         if (listofAlliances[0][3] !== 0) {
             allianceID1 = listofAlliances[0][3];
             alliance1side = listofAlliances[0][2];
+            allianceAlliance1 = listofAlliances[0][4];
         }
         if (listofAlliances[1][3] !== 0) {
             allianceID2 = listofAlliances[1][3];
             alliance2side = listofAlliances[1][2];
+            allianceAlliance2 = listofAlliances[1][4];
         }
         if (listofAlliances[2][3] !== 0) {
             allianceID3 = listofAlliances[2][3];
             alliance3side = listofAlliances[2][2];
+            allianceAlliance3 = listofAlliances[2][4];
         }
         if (listofAlliances[3][3] !== 0) {
             allianceID4 = listofAlliances[3][3];
             alliance4side = listofAlliances[3][2];
+            allianceAlliance4 = listofAlliances[3][4];
         }
         if (listofAlliances[4][3] !== 0) {
             allianceID5 = listofAlliances[4][3];
             alliance5side = listofAlliances[4][2];
+            allianceAlliance5 = listofAlliances[4][4];
         }
         if (listofAlliances[5][3] !== 0) {
             allianceID6 = listofAlliances[5][3];
             alliance6side = listofAlliances[5][2];
+            allianceAlliance6 = listofAlliances[5][4];
         }
 
 
 
-
-
-
-
-
-
-
-
-
+        
 
         date = document.getElementById("Year").value + document.getElementById("Month").value + document.getElementById("Day").value + document.getElementById("Hour").value + "00";
 
@@ -285,7 +297,7 @@
                 SortData();
             };
         }
-        PHPzkb.open("GET", "PHPGetZKBInfo.php?ID1=" + allianceID1 + "&ID2=" + allianceID2 + "&ID3=" + allianceID3 + "&ID4=" + allianceID4 + "&ID5=" + allianceID5 + "&ID6=" + allianceID6 + "&Side1=" + alliance1side + "&Side2=" + alliance2side + "&Side3=" + alliance3side + "&Side4=" + alliance4side + "&Side5=" + alliance5side + "&Side6=" + alliance6side + "&year=" + year + "&month=" + month + "&day=" + day + "&hour=" + hour, true);
+        PHPzkb.open("GET", "PHPGetZKBInfo.php?ID1=" + allianceID1 + "&ID2=" + allianceID2 + "&ID3=" + allianceID3 + "&ID4=" + allianceID4 + "&ID5=" + allianceID5 + "&ID6=" + allianceID6 + "&Side1=" + alliance1side + "&Side2=" + alliance2side + "&Side3=" + alliance3side + "&Side4=" + alliance4side + "&Side5=" + alliance5side + "&Side6=" + alliance6side + "&isAlliance1=" + allianceAlliance1 + "&isAlliance2=" + allianceAlliance2 + "&isAlliance3=" + allianceAlliance3 + "&isAlliance4=" + allianceAlliance4 + "&isAlliance5=" + allianceAlliance5 + "&isAlliance6=" + allianceAlliance6 + "&year=" + year + "&month=" + month + "&day=" + day + "&hour=" + hour, true);
         PHPzkb.send();
 
 
@@ -361,17 +373,28 @@
 
     function allianceTest(Alliancetested) {
 
+        var AorCimage;
+        var AorCURL;
+        if (listofAlliances[Alliancetested - 1][4] == 1) {
+            AorCimage = "Alliance";
+            AorCURL = "alliances";
+        }
+        else {
+            AorCimage = "Corporation";
+            AorCURL = "corporations"
+        }
+
 
         var allianceID = document.getElementById("Alliance" + Alliancetested).value;
-        var ESIURL = "http://image.eveonline.com/Alliance/" + String(allianceID) + "_128.png";
+        var ESIURL = "http://image.eveonline.com/" + AorCimage + "/" + String(allianceID) + "_128.png";
         document.getElementById("AllianceLogoURL" + Alliancetested).src = ESIURL;
         var allianceURL;
-        allianceURL = "https://esi.evetech.net/latest/alliances/" + document.getElementById("Alliance" + Alliancetested).value + "/?datasource=tranquility";
+        allianceURL = "https://esi.evetech.net/latest/" + AorCURL + "/" + document.getElementById("Alliance" + Alliancetested).value + "/?datasource=tranquility";
         var HTTPGet = new XMLHttpRequest();
         HTTPGet.open("GET", allianceURL, false);
         HTTPGet.send();
         var AllianceJSON = JSON.parse(HTTPGet.responseText);
-        if (AllianceJSON.error == "Alliance not found") {
+        if (AllianceJSON.error == "Alliance not found" || AllianceJSON.error == "Corporation not found") {
 
             listofAlliances[Alliancetested - 1][1] = false;
             listofAlliances[Alliancetested - 1][3] = 0;
@@ -380,6 +403,13 @@
             listofAlliances[Alliancetested - 1][1] = true;
             listofAlliances[Alliancetested - 1][3] = allianceID;
         }
+
+
+
+
+
+
+
 
         var alliance1PHP = "kills" + allianceID;
         var allianceDatabase = new XMLHttpRequest();
