@@ -11,7 +11,7 @@
     <button onclick="removeAlliance(1)">Remove Last Alliance</button>
 
     <br />
-    <div id="AllianceSide0" style="float:left;margin-right:10px ; margin-top:20px ; margin-bottom:10px; height:700px ; width : 300px; background-color:grey;overflow-y:scroll">
+    <div id="AllianceSide0" style="float:left;margin-right:10px ; margin-top:20px ; margin-bottom:10px; height:700px ; width : 300px; background-color:cornflowerblue;overflow-y:scroll">
 
 
 
@@ -38,7 +38,7 @@
 
 
 
-    <div id="AllianceSide1" style="float: right; margin-left:10px ; margin-top:20px ; margin-bottom:10px; height:700px ; width : 300px; background-color:grey;overflow-y:scroll">
+    <div id="AllianceSide1" style="float: right; margin-left:10px ; margin-top:20px ; margin-bottom:10px; height:700px ; width : 300px; background-color:indianred;overflow-y:scroll">
 
 
 
@@ -88,8 +88,8 @@
 <div style="float:inherit;height:120px;background-color:aliceblue;margin-left:auto;margin-right:auto;max-width:700px;min-width:550px">
 
     <p id="Progress">Program not started yet.</p>
-    <p id="Side0Kill">Side 0 killed</p>
-    <p id="Side1Kill">Side 1 killed</p>
+    <p id="Side0Kill">Blue side killed</p>
+    <p id="Side1Kill">Red side killed</p>
 
 </div>
 
@@ -159,6 +159,11 @@
 
     function IsAlliance(number, istrue) {
         listofAlliances[number][4] = istrue;
+        var checkstring = "Alliance" + (number + 1);
+        var check = document.getElementById(checkstring).value;
+        if (check != "") {
+            allianceTest(number + 1)
+        }
     }
 
 
@@ -363,8 +368,8 @@
         var FormatValueSide0 = Side0Value.toLocaleString("en-US", { minimumFractionDigits: 2 });
         var FormatValueSide1 = Side1Value.toLocaleString("en-US", { minimumFractionDigits: 2 });
 
-        document.getElementById("Side0Kill").innerHTML = "Side 0 killed " + FormatValueSide0 + " isk";
-        document.getElementById("Side1Kill").innerHTML = "Side 1 killed " + FormatValueSide1 + " isk";
+        document.getElementById("Side0Kill").innerHTML = "Blue side killed " + FormatValueSide0 + " isk";
+        document.getElementById("Side1Kill").innerHTML = "Red side killed " + FormatValueSide1 + " isk";
 
 
 
