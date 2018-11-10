@@ -22,15 +22,14 @@
 
 
 
-        <div id="AllianceDIV1" style=" margin-left:20% ;margin-right:10px ; margin-top:20px ; margin-bottom:10px ">
-            <img id="AllianceLogoURL1" style="min-height:128px;min-width:128px" src="http://image.eveonline.com/Alliance/1_128.png" /><br />
+        <div id="AllianceDIV1" style="width:170px; margin-left:20% ;margin-right:10px ; margin-top:20px ; margin-bottom:10px ; background-color:grey">
+            <img id="AllianceLogoURL1" style="min-height:128px;min-width:128px" src="http://image.eveonline.com/Alliance/1_128.png" /><img id="AlliancePassed1" src="RedCross.png" style="margin-bottom:40px;width:30px;height:30px"/>
+            <br />
             <select onchange="IsAlliance(0,value)"><option value="1">Alliance</option><option value="0">Corp</option></select> 
              1 ID<br />
             <input id="Alliance1" onblur="allianceTest(1)" />
             <p id="ADBFound1"></p>
         </div>
-
-
 
 
     </div>
@@ -46,8 +45,8 @@
             <button onclick="addAlliance(1)">Add</button>
         </div>
 
-        <div id="AllianceDIV2" style="margin-right:20%; margin-left:10px ; margin-top:20px ; margin-bottom:10px ">
-            <img id="AllianceLogoURL2" style="min-height:128px;min-width:128px" src="http://image.eveonline.com/Alliance/1_128.png" /><br />
+        <div id="AllianceDIV2" style="width:170px;margin-right:20%; margin-left:10px ; margin-top:20px ; margin-bottom:10px ; background-color:grey">
+            <img id="AlliancePassed2" src="RedCross.png" style="margin-bottom:40px;width:30px;height:30px"/><img id="AllianceLogoURL2" style="min-height:128px;min-width:128px" src="http://image.eveonline.com/Alliance/1_128.png" /><br />
             <select onchange="IsAlliance(1,value)"><option value="1">Alliance</option><option value="0">Corp</option></select>
             2 ID<br />
             <input id="Alliance2" onblur="allianceTest(2)" />
@@ -153,7 +152,7 @@
     var LastAlliance = 2;
 
     var listofAlliances = new Array();
-                                                                            // Alliance number  /  Is ready  /   Side they're on      /  AllianceID    /  Is an alliance?
+                                                                            // Alliance number  /  Is ready  /   Side they're on      /  AllianceID    /  Is an alliance?     //
     var listofAlliances = [['Alliance1', 'false', 0, 0, 1], ['Alliance2', 'false', 1, 0, 1], ['Alliance3', 'false', 1, 1, 1], ['Alliance4', 'false', 1, 1, 1], ['Alliance5', 'false', 1, 1, 1], ['Alliance6', 'false', 1, 1, 1]];
 
 
@@ -179,12 +178,12 @@
             var float;
             var side = input;
             if (side == 0) {
-                info = '<div id="AllianceDIV' + LastAlliance + '" style="margin-left:20%;margin-right:10px '
+                info = '<div id="AllianceDIV' + LastAlliance + '" style="width:170px;margin-left:20%;margin-right:10px  ; margin-top:20px ; margin-bottom:10px; background-color:grey"> <img id="AllianceLogoURL' + LastAlliance + '" style="min-height:128px;min-width:128px" src="http://image.eveonline.com/Alliance/1_128.png" />  <img id="AlliancePassed' + LastAlliance + '" src="RedCross.png" style="margin-bottom:40px;width:30px;height:30px"/>'
             }
             else {
-                info = '<div id="AllianceDIV' + LastAlliance + '" style="margin-right:20%;margin-left:10px '
+                info = '<div id="AllianceDIV' + LastAlliance + '" style="width:170px;margin-right:20%;margin-left:10px  ; margin-top:20px ; margin-bottom:10px; background-color:grey"> <img id="AlliancePassed' + LastAlliance + '" src="RedCross.png" style="margin-bottom:40px;width:30px;height:30px"/> <img id="AllianceLogoURL' + LastAlliance + '" style="min-height:128px;min-width:128px" src="http://image.eveonline.com/Alliance/1_128.png" />'
             }
-            document.getElementById("AllianceSide" + side).innerHTML += '' + info + ' ; margin-top:20px ; margin-bottom:10px"> <img id="AllianceLogoURL' + LastAlliance + '" style="min-height:128px;min-width:128px" src="http://image.eveonline.com/Alliance/1_128.png" /><br /><select onchange="IsAlliance('+(LastAlliance - 1)+',value)"><option value="1">Alliance</option><option value="0">Corp</option></select> ' + LastAlliance + ' ID<br />  <input id="Alliance' + LastAlliance + '" onblur="allianceTest(' + LastAlliance + ')" /> <p id="ADBFound' + LastAlliance + '"></p> </div>';
+            document.getElementById("AllianceSide" + side).innerHTML += '' + info + ' <br /><select onchange="IsAlliance('+(LastAlliance - 1)+',value)"><option value="1">Alliance</option><option value="0">Corp</option></select> ' + LastAlliance + ' ID<br />  <input id="Alliance' + LastAlliance + '" onblur="allianceTest(' + LastAlliance + ')" /> <p id="ADBFound' + LastAlliance + '"></p> </div>';
 
             var NewAllianceString = "Alliance" + LastAlliance;
 
@@ -395,19 +394,31 @@
         document.getElementById("AllianceLogoURL" + Alliancetested).src = ESIURL;
         var allianceURL;
         allianceURL = "https://esi.evetech.net/latest/" + AorCURL + "/" + document.getElementById("Alliance" + Alliancetested).value + "/?datasource=tranquility";
-        var HTTPGet = new XMLHttpRequest();
-        HTTPGet.open("GET", allianceURL, false);
-        HTTPGet.send();
-        var AllianceJSON = JSON.parse(HTTPGet.responseText);
-        if (AllianceJSON.error == "Alliance not found" || AllianceJSON.error == "Corporation not found") {
 
-            listofAlliances[Alliancetested - 1][1] = false;
-            listofAlliances[Alliancetested - 1][3] = 0;
+
+
+        var HTTPGet = new XMLHttpRequest();
+        HTTPGet.onreadystatechange = function () {
+            if (HTTPGet.readyState == 4) {
+                var AllianceJSON = JSON.parse(HTTPGet.responseText);
+                if (AllianceJSON.error == "Alliance not found" || AllianceJSON.error == "Corporation not found"  ||  AllianceJSON.error == "Not found") {
+
+                    listofAlliances[Alliancetested - 1][1] = false;
+                    listofAlliances[Alliancetested - 1][3] = 0;
+                    document.getElementById("AlliancePassed" + Alliancetested).src = "RedCross.png"
+                }
+                else {
+                    listofAlliances[Alliancetested - 1][1] = true;
+                    listofAlliances[Alliancetested - 1][3] = allianceID;
+                    document.getElementById("AlliancePassed" + Alliancetested).src = "GreenTick.png";
+                }
+
+
+
+            }
         }
-        else {
-            listofAlliances[Alliancetested - 1][1] = true;
-            listofAlliances[Alliancetested - 1][3] = allianceID;
-        }
+        HTTPGet.open("GET", allianceURL, true);
+        HTTPGet.send();
 
 
 
@@ -470,26 +481,46 @@
     function resetVariables() {
 
 
+
+
+        allianceID1 = 0;
+        allianceID2 = 0;
+        allianceID3 = 0;
+        allianceID4 = 0;
+        allianceID5 = 0;
+        allianceID6 = 0;
+        alliance1side = 0;
+        alliance2side = 0;
+        alliance3side = 0;
+        alliance4side = 0;
+        alliance5side = 0;
+        alliance6side = 0;
+        allianceAlliance1 = 0;
+        allianceAlliance2 = 0;
+        allianceAlliance3 = 0;
+        allianceAlliance4 = 0;
+        allianceAlliance5 = 0;
+        allianceAlliance6 = 0;
         killPageNumber = 1;
         lossPageNumber = 1;
         JSONString = "N/A";
-        date;
-        year;
-        month;
-        day;
-        hour;
+        date = 0;
+        year = 0;
+        month = 0;
+        day = 0;
+        hour = 0;
         killMailIDArray = [];
         listEndTest = "NotUsedYet";
-        FetchKMURL;
-        FetchLossMailURL;
-        timeOut;
-        LossmailEnd;
+        FetchKMURL = 0;
+        FetchLossMailURL = 0;
+        timeOut = 0;
+        LossmailEnd = 0;
         lossMailIDArray = [];
         totalKillValue = 0;
-        KillmailDate;
-        ESIURL;
-        ESIHash;
-        ESIKMID;
+        KillmailDate = 0;
+        ESIURL = 0;
+        ESIHash = 0;
+        ESIKMID = 0;
         lossMailsAmount = 0;
         allKillMailsFound = false;
         allLossMailsFound = false;
@@ -497,12 +528,15 @@
         allianceTwoReady = false;
         allianceOneInDatabase = false;
         allianceTwoInDatabase = false;
-        PHPReturn;
+        PHPReturn = 0;
         previouslength = 0;
 
         PHPzkb = new XMLHttpRequest();
 
-        timer;
+        timer = 0;
+
+
+
 
 
     }
