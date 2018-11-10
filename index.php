@@ -5,6 +5,7 @@
 
 <noscript><p>JavaScript is not enabled.  EVE Generator requires JavaScript to function.</p></noscript>
 
+<p>This is still in development.  There are going to be bugs and problems.</p>
 
 <body>
 
