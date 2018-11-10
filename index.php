@@ -11,18 +11,18 @@
     <button onclick="removeAlliance(1)">Remove Last Alliance</button>
 
     <br />
-    <div id="AllianceSide0" style="float:left;margin-right:10px ; margin-top:20px ; margin-bottom:10px; height:700px ; width : 300px; background-color:cornflowerblue;overflow-y:scroll">
+    <div id="AllianceSide0" style="float:left;margin-left:50px;margin-right:10px ; margin-top:20px ; margin-bottom:10px; height:700px ; width : 250px;  background-color:cornflowerblue;overflow-y:scroll">
 
 
 
-        <div style=" margin-left:27.5% ;margin-right:10px ;  margin-bottom:10px; ">
+        <div style="margin-right:10px ;  margin-bottom:10px; ">
             <button onclick="addAlliance(0)">Add</button>
         </div>
 
 
 
 
-        <div id="AllianceDIV1" style="width:170px; margin-left:20% ;margin-right:10px ; margin-top:20px ; margin-bottom:10px ; background-color:grey">
+        <div id="AllianceDIV1" style="width:170px;height:220px ;margin-left:10px ;margin-right:10px ; margin-top:20px ; margin-bottom:10px ; background-color:grey">
             <img id="AllianceLogoURL1" style="min-height:128px;min-width:128px" src="http://image.eveonline.com/Alliance/1_128.png" /><img id="AlliancePassed1" src="RedCross.png" style="margin-bottom:40px;width:30px;height:30px"/>
             <br />
             <select onchange="IsAlliance(0,value)"><option value="1">Alliance</option><option value="0">Corp</option></select> 
@@ -37,15 +37,15 @@
 
 
 
-    <div id="AllianceSide1" style="float: right; margin-left:10px ; margin-top:20px ; margin-bottom:10px; height:700px ; width : 300px; background-color:indianred;overflow-y:scroll">
+    <div id="AllianceSide1" style="float: right;margin-right:50px ;margin-left:10px ; margin-top:20px ; margin-bottom:10px; height:700px ; width : 250px; background-color:indianred;overflow-y:scroll">
 
 
 
-        <div style="margin-right:27.5%; margin-left:10px ;  margin-bottom:10px ">
+        <div style=" margin-left:10px ;  margin-bottom:10px ">
             <button onclick="addAlliance(1)">Add</button>
         </div>
 
-        <div id="AllianceDIV2" style="width:170px;margin-right:20%; margin-left:10px ; margin-top:20px ; margin-bottom:10px ; background-color:grey">
+        <div id="AllianceDIV2" style="width:170px;height:220px;margin-right:10px; margin-left:10px ; margin-top:20px ; margin-bottom:10px ; background-color:grey">
             <img id="AlliancePassed2" src="RedCross.png" style="margin-bottom:40px;width:30px;height:30px"/><img id="AllianceLogoURL2" style="min-height:128px;min-width:128px" src="http://image.eveonline.com/Alliance/1_128.png" /><br />
             <select onchange="IsAlliance(1,value)"><option value="1">Alliance</option><option value="0">Corp</option></select>
             2 ID<br />
@@ -178,10 +178,10 @@
             var float;
             var side = input;
             if (side == 0) {
-                info = '<div id="AllianceDIV' + LastAlliance + '" style="width:170px;margin-left:20%;margin-right:10px  ; margin-top:20px ; margin-bottom:10px; background-color:grey"> <img id="AllianceLogoURL' + LastAlliance + '" style="min-height:128px;min-width:128px" src="http://image.eveonline.com/Alliance/1_128.png" />  <img id="AlliancePassed' + LastAlliance + '" src="RedCross.png" style="margin-bottom:40px;width:30px;height:30px"/>'
+                info = '<div id="AllianceDIV' + LastAlliance + '" style="width:170px;height:220px;margin-left:10px;margin-right:10px  ; margin-top:20px ; margin-bottom:10px; background-color:grey"> <img id="AllianceLogoURL' + LastAlliance + '" style="min-height:128px;min-width:128px" src="http://image.eveonline.com/Alliance/1_128.png" />  <img id="AlliancePassed' + LastAlliance + '" src="RedCross.png" style="margin-bottom:40px;width:30px;height:30px"/>'
             }
             else {
-                info = '<div id="AllianceDIV' + LastAlliance + '" style="width:170px;margin-right:20%;margin-left:10px  ; margin-top:20px ; margin-bottom:10px; background-color:grey"> <img id="AlliancePassed' + LastAlliance + '" src="RedCross.png" style="margin-bottom:40px;width:30px;height:30px"/> <img id="AllianceLogoURL' + LastAlliance + '" style="min-height:128px;min-width:128px" src="http://image.eveonline.com/Alliance/1_128.png" />'
+                info = '<div id="AllianceDIV' + LastAlliance + '" style="width:170px;height:220px;margin-right:10px;margin-left:10px  ; margin-top:20px ; margin-bottom:10px; background-color:grey"> <img id="AlliancePassed' + LastAlliance + '" src="RedCross.png" style="margin-bottom:40px;width:30px;height:30px"/> <img id="AllianceLogoURL' + LastAlliance + '" style="min-height:128px;min-width:128px" src="http://image.eveonline.com/Alliance/1_128.png" />'
             }
             document.getElementById("AllianceSide" + side).innerHTML += '' + info + ' <br /><select onchange="IsAlliance('+(LastAlliance - 1)+',value)"><option value="1">Alliance</option><option value="0">Corp</option></select> ' + LastAlliance + ' ID<br />  <input id="Alliance' + LastAlliance + '" onblur="allianceTest(' + LastAlliance + ')" /> <p id="ADBFound' + LastAlliance + '"></p> </div>';
 
