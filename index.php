@@ -5,7 +5,6 @@
 
 <noscript><p>JavaScript is not enabled.  EVE Generator requires JavaScript to function.</p></noscript>
 
-<p>This is still in development.  There are going to be bugs and problems.</p>
 
 <body>
 
@@ -160,9 +159,9 @@
 
     var LastAlliance = 2;
 
-    var listofAlliances = new Array();
+    var listofAlliances = new Array();                                      //          0              1               2                       3               4
                                                                             // Alliance number  /  Is ready  /   Side they're on      /  AllianceID    /  Is an alliance?     //
-    var listofAlliances = [['Alliance1', 'false', 0, 0, 1], ['Alliance2', 'false', 1, 0, 1], ['Alliance3', 'false', 1, 1, 1], ['Alliance4', 'false', 1, 1, 1], ['Alliance5', 'false', 1, 1, 1], ['Alliance6', 'false', 1, 1, 1]];
+    var listofAlliances = [['Alliance1', 'false', 0, 0, 1], ['Alliance2', 'false', 1, 0, 1], ['Alliance3', 'false', 1, 0, 1], ['Alliance4', 'false', 1, 0, 1], ['Alliance5', 'false', 1, 0, 1], ['Alliance6', 'false', 1, 0, 1]];
 
 
     function IsAlliance(number, istrue) {
@@ -197,7 +196,7 @@
             var NewAllianceString = "Alliance" + LastAlliance;
 
 
-            listofAlliances[LastAlliance - 1][3] = side;
+            listofAlliances[LastAlliance - 1][2] = side;
 
 
 
