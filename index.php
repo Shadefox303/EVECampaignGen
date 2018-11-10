@@ -5,7 +5,12 @@
 
 <noscript><p>JavaScript is not enabled.  EVE Generator requires JavaScript to function.</p></noscript>
 
-<div id="Alliances" align="center" style="float:inherit;height:775px;background-color:antiquewhite;margin-left:auto;margin-right:auto;max-width:700px;min-width:550px">
+
+<body style="background-image:url(background.jpg)">
+
+
+
+<div id="Alliances" align="center" style="float:inherit;height:775px;margin-left:auto;margin-right:auto;max-width:700px;min-width:550px">
 
 
     <button onclick="removeAlliance(1)">Remove Last Alliance</button>
@@ -91,6 +96,9 @@
     <p id="Side1Kill">Red side killed</p>
 
 </div>
+
+
+</body>
 
 
 <script>
