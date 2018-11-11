@@ -5,8 +5,8 @@ handlers:
 - url: /.*
   script: index.php
 
-- url:/.*
+- url: /.*
   script: PHPDatabaseCheck.php
   
-- url:/.*  
+- url: /.*  
   script: PHPGetZKBInfo.php
