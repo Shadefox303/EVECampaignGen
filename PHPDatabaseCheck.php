@@ -3,9 +3,9 @@
 $AllianceOne = $_GET["ID"];
 
 
-$servername = "newdatabasetest.mysql.database.azure.com";
-$username = "Shade@newdatabasetest";
-$password = "Lesbian303";
+$servername = "*****";
+$username = "*****";
+$password = "*****";
 
 $conn = new mysqli($servername, $username, $password);
 

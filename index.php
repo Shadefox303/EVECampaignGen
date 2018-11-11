@@ -435,23 +435,23 @@
 
 
 
-        var alliance1PHP = "kills" + allianceID;
-        var allianceDatabase = new XMLHttpRequest();
+        //var alliance1PHP = "kills" + allianceID;                  //SQL check
+        //var allianceDatabase = new XMLHttpRequest();
 
-        allianceDatabase.onreadystatechange = function () {
-            if (this.readyState == 4 && this.status == 200) {
-                if (allianceDatabase.responseText == 1) {
-                    document.getElementById("ADBFound" + Alliancetested).innerHTML = "Alliance in Database";
-                }
-                else {
-                    document.getElementById("ADBFound" + Alliancetested).innerHTML = "Alliance not in Database";
+        //allianceDatabase.onreadystatechange = function () {
+        //    if (this.readyState == 4 && this.status == 200) {
+        //        if (allianceDatabase.responseText == 1) {
+        //            document.getElementById("ADBFound" + Alliancetested).innerHTML = "Alliance in Database";
+        //        }
+        //        else {
+        //            document.getElementById("ADBFound" + Alliancetested).innerHTML = "Alliance not in Database";
 
-                }
-            }
-        };
+        //        }
+        //    }
+        //};
 
-        allianceDatabase.open("GET", "PHPDatabaseCheck.php?ID=" + alliance1PHP, false)
-        allianceDatabase.send();
+        //allianceDatabase.open("GET", "PHPDatabaseCheck.php?ID=" + alliance1PHP, false)
+        //allianceDatabase.send();
 
 
         isReady();
