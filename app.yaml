@@ -1,5 +1,5 @@
 api_version: 1
-runtime: php
+runtime: php55
 
 handlers:
 # Serve images as static resources.
