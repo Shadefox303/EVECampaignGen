@@ -1,4 +1,3 @@
-runtime: php7
 api_version: 1
 
 handlers:
