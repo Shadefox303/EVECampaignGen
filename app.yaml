@@ -4,3 +4,5 @@ threadsafe: true
 handlers:
 - url: /.*
   script: index.php
+  script: PHPDatabaseCheck.php
+  script: PHPGetZKBInfo.php
