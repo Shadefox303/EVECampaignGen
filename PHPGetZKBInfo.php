@@ -142,6 +142,8 @@ foreach ($allianceArray as $value){
             $finalprogress = 100 - round(($percentageOver / $percentageUnder) * 100);
             $finalprogressString = "Alliance " . $currentAlliancenumber . " killmails - " . $finalprogress . "%";
             echo "`" . $finalprogressString;
+            ob_flush();
+            flush();
         }
         $pagenumber = $pagenumber + 1;
     }
@@ -181,6 +183,8 @@ foreach ($allianceArray as $value){
             $finalprogressString = "Alliance " . $currentAlliancenumber . " lossmails - " . $finalprogress . "%";
 
             echo "`" . $finalprogressString;
+            ob_flush();
+            flush();
         }
         $pagenumber = $pagenumber + 1;
     }
