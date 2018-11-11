@@ -1,5 +1,5 @@
 <?php
-
+ini_set('max_execution_time', 0);
 ob_implicit_flush(true);
 ob_end_flush();
 
