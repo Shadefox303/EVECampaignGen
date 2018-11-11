@@ -1,5 +1,6 @@
-runtime: php
-env: flex
-
-runtime_config:
-  document_root: web
+runtime: php55
+api_version: 1
+threadsafe: true
+handlers:
+- url: /.*
+  script: index.php
